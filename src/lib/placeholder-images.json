@@ -1,0 +1,58 @@
+{
+  "placeholderImages": [
+    {
+      "id": "landing-hero",
+      "description": "Abstract office environment",
+      "imageUrl": "https://images.unsplash.com/photo-1725013936454-062bea77ec07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxvZmZpY2UlMjBhYnN0cmFjdHxlbnwwfHx8fDE3NjI2ODgxNTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "office abstract"
+    },
+    {
+      "id": "feature-ai-chat",
+      "description": "AI chat interface",
+      "imageUrl": "https://images.unsplash.com/photo-1694878981888-7a526050b455?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaGF0JTIwaW50ZXJmYWNlfGVufDB8fHx8MTc2MjU3NjY0M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "chat interface"
+    },
+    {
+      "id": "feature-insights",
+      "description": "Dashboard with charts",
+      "imageUrl": "https://images.unsplash.com/photo-1759661966728-4a02e3c6ed91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkYXNoYm9hcmQlMjBjaGFydHxlbnwwfHx8fDE3NjI2NTMwMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dashboard chart"
+    },
+    {
+      "id": "feature-reports",
+      "description": "PDF report icon",
+      "imageUrl": "https://images.unsplash.com/photo-1589816674497-7dfd61343638?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkb2N1bWVudCUyMHJlcG9ydHxlbnwwfHx8fDE3NjI2NzA5MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "document report"
+    },
+    {
+      "id": "avatar-1",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjI1OTQ3NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "avatar-2",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjI1OTQ3NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "avatar-3",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjI1OTQ3NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "admin-avatar",
+      "description": "Admin User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1512227847796-ddde7e3979c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwcHJvZmVzc2lvbmFsfGVufDB8fHx8MTc2MjY3NDEwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person professional"
+    },
+    {
+      "id": "employee-avatar",
+      "description": "Employee User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1655468010287-447c61a37e72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZXJzb24lMjBjYXN1YWx8ZW58MHx8fHwxNzYyNjg4MTU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person casual"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      // Check if the user document exists and has the 'admin' role.
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isHr() {
+        return request.auth != null &&
+                exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+                get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'hr';
+    }
+
+    match /users/{userId} {
+      allow read, update: if isOwner(userId) || isAdmin() || isHr();
+      allow create: if request.auth != null; // Any authenticated user can create their own profile
+      allow delete: if isAdmin();
+      allow list: if isAdmin() || isHr();
+    }
+
+    // Admins and HR can manage all subcollections for any user
+    match /users/{userId}/{collection}/{docId} {
+       allow read, list, create, update, delete: if isAdmin() || isHr();
+    }
+
+    // Employees can only manage their own subcollections
+    match /users/{userId}/payrolls/{payrollId} {
+      allow read: if isOwner(userId);
+    }
+     match /users/{userId}/attendance/{attendanceId} {
+      allow read: if isOwner(userId);
+    }
+     match /users/{userId}/leaveRequests/{leaveRequestId} {
+      allow read, create: if isOwner(userId);
+      // Deny updates from employees to prevent them from changing status
+      allow update: if (isAdmin() || isHr()) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+      allow delete: if isOwner(userId);
+    }
+
+    // Admins have full access to top-level collections like payrolls and attendance for management purposes
+    match /payrolls/{payrollId} {
+       allow read, list, create, update, delete: if isAdmin() || isHr();
+    }
+
+    match /attendance/{attendanceId} {
+       allow read, list, create, update, delete: if isAdmin() || isHr();
+    }
+    
+    // Collection group query for leave requests
+    match /{path=**}/leaveRequests/{leaveRequestId} {
+        allow read, list: if isAdmin() || isHr();
+        allow update: if (isAdmin() || isHr()) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+    }
+  }
+}

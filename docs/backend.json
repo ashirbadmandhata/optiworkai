@@ -1,0 +1,297 @@
+
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user in the payroll system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "name": {
+          "type": "string",
+          "description": "User's full name."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "designation": {
+          "type": "string",
+          "description": "User's job title or designation."
+        },
+        "department": {
+          "type": "string",
+          "description": "Department the user belongs to."
+        },
+        "role": {
+          "type": "string",
+          "description": "User's role (Admin, HR, Employee)."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "designation",
+        "department",
+        "role"
+      ]
+    },
+    "Payroll": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Payroll",
+      "type": "object",
+      "description": "Represents payroll information for an employee.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the payroll record."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Payroll)"
+        },
+        "payPeriodStartDate": {
+          "type": "string",
+          "description": "Start date of the pay period.",
+          "format": "date-time"
+        },
+        "payPeriodEndDate": {
+          "type": "string",
+          "description": "End date of the pay period.",
+          "format": "date-time"
+        },
+        "grossSalary": {
+          "type": "number",
+          "description": "Gross pay amount for the period."
+        },
+        "deductions": {
+          "type": "number",
+          "description": "Total deductions for the period."
+        },
+        "tax": {
+            "type": "number",
+            "description": "Tax amount for the period."
+        },
+        "deductionReason": {
+            "type": "string",
+            "description": "Reason for any deductions."
+        },
+        "netSalary": {
+          "type": "number",
+          "description": "Net pay amount after deductions."
+        },
+        "paymentDate": {
+          "type": "string",
+          "description": "Date when the payment was issued.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "payPeriodStartDate",
+        "payPeriodEndDate",
+        "grossSalary",
+        "deductions",
+        "tax",
+        "netSalary",
+        "paymentDate"
+      ]
+    },
+    "Attendance": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Attendance",
+      "type": "object",
+      "description": "Represents employee attendance records.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the attendance record."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Attendance)"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of the attendance record.",
+          "format": "date-time"
+        },
+        "checkInTime": {
+          "type": "string",
+          "description": "Time when the employee checked in.",
+          "format": "date-time"
+        },
+        "checkOutTime": {
+          "type": "string",
+          "description": "Time when the employee checked out.",
+          "format": "date-time"
+        },
+        "hoursWorked": {
+          "type": "number",
+          "description": "Number of hours worked."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "date",
+        "checkInTime",
+        "checkOutTime",
+        "hoursWorked"
+      ]
+    },
+    "LeaveRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "LeaveRequest",
+      "type": "object",
+      "description": "Represents employee leave requests.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the leave request."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N LeaveRequest)"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Start date of the leave.",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "End date of the leave.",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the leave request."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the leave request (Pending, Approved, Rejected)."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "startDate",
+        "endDate",
+        "reason",
+        "status"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous",
+      "google"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/payrolls/{payrollId}",
+        "definition": {
+          "entityName": "Payroll",
+          "schema": {
+            "$ref": "#/backend/entities/Payroll"
+          },
+          "description": "Stores payroll information for each user. Uses path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "payrollId",
+              "description": "The unique identifier of the payroll record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/attendance/{attendanceId}",
+        "definition": {
+          "entityName": "Attendance",
+          "schema": {
+            "$ref": "#/backend/entities/Attendance"
+          },
+          "description": "Stores attendance records for each user. Uses path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "attendanceId",
+              "description": "The unique identifier of the attendance record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/leaveRequests/{leaveRequestId}",
+        "definition": {
+          "entityName": "LeaveRequest",
+          "schema": {
+            "$ref": "#/backend/entities/LeaveRequest"
+          },
+          "description": "Stores leave requests for each user. Uses path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "leaveRequestId",
+              "description": "The unique identifier of the leave request."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{userId}",
+        "definition": {
+          "entityName": "role",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Documents in this collection signify admin roles. Existence implies admin.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user with admin role."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to support a secure and scalable payroll management system with role-based access control. It prioritizes authorization independence and simplifies security rules by denormalizing authorization context and segregating data based on access needs.\n\n*   **Authorization Independence:** The structure uses path-based ownership for user-specific data (Payroll, Attendance, LeaveRequest), eliminating the need for `get()` calls in security rules to determine ownership. Global roles are managed via existence checks in dedicated collections (`/roles_admin/{uid}`).\n*   **QAPs (Rules are not Filters):** Path-based ownership and role-based collections enable secure `list` operations, as rules can easily filter data based on the requesting user's ID or role. Segregation of data into collections with homogeneous security postures (e.g., user-owned data under `/users/{userId}`) further simplifies security rule definitions.\n*   **DBAC (No Custom Claims):** Role based access control is achieved using Roles stored directly in the user document in the `/users/{userId}` collection.\n*   **Invariants:** Path based ownership ensures that only the owner of the parent resource (e.g. the user) can create or modify child resources. Timestamps can be enforced in rules using `request.time`. Denormalized data is kept consistent using server side transactions.\n\nData is structured to facilitate simple and robust security rules, with clear ownership and access control patterns. This design allows for efficient querying and minimizes the complexity of security rules, improving maintainability and security."
+  }
+}
